@@ -217,8 +217,12 @@ public class CreativeExchanger extends ItemBCore implements IConfigurableItem, I
             scanned.add(newPos);
             IBlockState state = world.getBlockState(newPos);
 
-            boolean validReplace = !world.isAirBlock(newPos) && (!replaceSame || state == originState) && (!replaceVisible || world.isAirBlock(newPos.offset(side)) || state.getBlock().isReplaceable(world, newPos.offset(side))) && (!fillLogic || state == originState);
-
+            boolean validReplace = false;
+            try{
+                validReplace = !world.isAirBlock(newPos) && (!replaceSame || state == originState) && (!replaceVisible || world.isAirBlock(newPos.offset(side)) || state.getBlock().isReplaceable(world, newPos.offset(side))) && (!fillLogic || state == originState);
+            }
+            catch(Exception e){}
+            
             if (validReplace) {
                 toReplace.add(newPos);
             }
